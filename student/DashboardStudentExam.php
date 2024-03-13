@@ -1,11 +1,42 @@
 <?php
+
+class StudentExam {
+    public $name;
+    public $id;
+    public $date;
+
+    public function __construct($name, $id, $date) {
+        $this->name = $name;
+        $this->id = $id;
+        $this->date = $date;
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getDate() {
+        return $this->date;
+    }
+}
+
 $exams = array(
-    array("name" => "Course 1", "id" => 101, "date" => "2024-03-10"),
-    array("name" => "Course 2", "id" => 102, "date" => "2024-03-15"),
-    array("name" => "Course 3", "id" => 103, "date" => "2024-03-20"),
-    array("name" => "Course 4", "id" => 104, "date" => "2024-03-25"),
-    array("name" => "Course 5", "id" => 105, "date" => "2024-03-30")
+    new StudentExam("Course 1", 101, "2024-03-10"),
+    new StudentExam("Course 2", 102, "2024-03-15"),
+    new StudentExam("Course 3", 103, "2024-03-20"),
+    new StudentExam("Course 4", 104, "2024-03-25"),
+    new StudentExam("Course 5", 105, "2024-03-30")
 );
+
+$jsonExams = json_encode($exams);
+
+echo $jsonExams;
+
+    
 ?>
 
 <div class="container">
@@ -21,12 +52,12 @@ $exams = array(
         <tbody>
             <?php foreach ($exams as $exam) { ?>
                 <tr>
-                    <td><?php echo $exam["name"]; ?></td>
-                    <td><?php echo $exam["id"]; ?></td>
-                    <td><?php echo $exam["date"]; ?></td>
+                    <td><?php echo $exam->getName(); ?></td>
+                    <td><?php echo $exam->getId(); ?></td>
+                    <td><?php echo $exam->getDate(); ?></td>
                     <td><button class="btn btn-success btn-sm">Start Exam</button></td>
                 </tr>
             <?php } ?>
         </tbody>
     </table>
-</div>
+</div> 
