@@ -2,31 +2,27 @@
  <div class="content">
      <?php
         include 'HeaderInst.php';
-        ?>
-     <?php
-        
-        $courses = array(
-            array("id" => 1, "name" => "Web Prog", "numOfStudents" => 12, "numOfExams" => 2),
-            array("id" => 2, "name" => "Algorithm", "numOfStudents" => 99, "numOfExams" => 3)
-        );
+        include 'connection.php';
+        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=1)");
+
+
         ?>
      <div class="container">
          <table class="table table-bordered table-striped table-hover text-center mt-5">
              <thead class="table-primary">
                  <tr>
-                     <th style="width: 25%;">ID</th>
-                     <th style="width: 25%;">Name</th>
-                     <th style="width: 25%;">Number of Students</th>
-                     <th style="width: 25%;">Number of Exams</th>
+                     <th style="width: 33%;">ID</th>
+                     <th style="width: 33%;">Name</th>
+                     <th style="width: 33%;">Code</th>
+
                  </tr>
              </thead>
              <tbody>
-                 <?php foreach ($courses as $course) { ?>
+                 <?php while ($row = mysqli_fetch_assoc($query)) { ?>
                      <tr>
-                         <td><?php echo $course["id"]; ?></td>
-                         <td><?php echo $course["name"]; ?></td>
-                         <td><?php echo $course["numOfStudents"]; ?></td>
-                         <td><?php echo $course["numOfExams"]; ?></td>
+                         <td><?php echo "$row[pk]"; ?></td>
+                         <td><?php echo "$row[name]"; ?></td>
+                         <td><?php echo "$row[code]"; ?></td>
                      </tr>
                  <?php } ?>
              </tbody>

@@ -1,25 +1,30 @@
 <?php
 
-class StudentExam {
+class StudentExam
+{
     public $name;
     public $id;
     public $date;
 
-    public function __construct($name, $id, $date) {
+    public function __construct($name, $id, $date)
+    {
         $this->name = $name;
         $this->id = $id;
         $this->date = $date;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getDate() {
+    public function getDate()
+    {
         return $this->date;
     }
 }
@@ -31,12 +36,6 @@ $exams = array(
     new StudentExam("Course 4", 104, "2024-03-25"),
     new StudentExam("Course 5", 105, "2024-03-30")
 );
-
-$jsonExams = json_encode($exams);
-
-echo $jsonExams;
-
-    
 ?>
 
 <div class="container">
@@ -60,4 +59,4 @@ echo $jsonExams;
             <?php } ?>
         </tbody>
     </table>
-</div> 
+</div>
