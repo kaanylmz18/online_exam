@@ -3,7 +3,7 @@
      <?php
         include 'HeaderInst.php';
         include 'connection.php';
-        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=1)");
+        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=6)");
 
 
         ?>
@@ -22,7 +22,7 @@
                      <tr>
                          <td><?php echo "$row[pk]"; ?></td>
                          <td><?php echo "$row[name]"; ?></td>
-                         <td><?php echo "$row[code]"; ?></td>
+                         <td><a href="CourseDetails.php?coursePK=<?php echo $row['pk'];?>"><?php echo "$row[code]"; ?></a> </td>
                      </tr>
                  <?php } ?>
              </tbody>
