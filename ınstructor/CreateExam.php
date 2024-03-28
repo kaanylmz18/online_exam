@@ -22,15 +22,22 @@
         $type = $_POST['type'];
         $grade_percent = $_POST['grade_percent'];
 
+        //function test_input($data){
+        //    $data = trim($data);
+        //    $data = stripslashes($data);
+        //    $data = htmlspecialchars($data);
+        //    return $data;
+        //}
+
         // Retrieve courseFK from the URL parameter
-        if(isset($_GET['courseFK'])) {
+        if (isset($_GET['courseFK'])) {
             $courseFK = $_GET['courseFK'];
 
 
-        // Retrieve courseFK from POST parameter
-        //if (isset($_POST['courseFK'])) {
-        //    $courseFK = $_POST['courseFK'];
-            
+            // Retrieve courseFK from POST parameter
+            //if (isset($_POST['courseFK'])) {
+            //    $courseFK = $_POST['courseFK'];
+
 
             // Insert the exam into the database
             $query = "INSERT INTO `exam`(`date`, `type`, `courseFK`, `grade_percent`) VALUES ('$date', '$type', '$courseFK', '$grade_percent')";
@@ -48,33 +55,44 @@
     ?>
 
 
-    <div class="container mt-5">
-        <h2>Create Exam</h2>
-        <form method="post">
+<div class="container mt-5">
+    <h2>Create Exam</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="type" class="form-label">Type of Exam</label>
+            <select class="form-select" id="type" name="type">
+                <option value="midterm">Midterm</option>
+                <option value="final">Final</option>
+                <option value="project">Project</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="date" class="form-label">Exam Date</label>
+            <input type="date" class="form-control" id="date" name="date" required>
+        </div>
+        <div class="mb-3">
+            <label for="grade_percent" class="form-label">Grade Percentage (%)</label>
+            <div class="input-group">
+                <input type="number" class="form-control" id="grade_percent" name="grade_percent" min="0" max="100" value="0" required>
+                <button class="btn btn-outline-secondary" type="button" id="increaseBtn">Up</button>
+            </div>
+        </div><br>
+        <div class="d-flex justify-content-between align-items-center"> <!-- Using flexbox to align buttons -->
+            <div>
+                <?php
+                $course_id= $_GET['courseFK'];
+                ?>
+                <a href='CourseDetails.php?coursePK=<?php echo $course_id;?>' class='btn btn-secondary'>Back To Page</a>
+                
+                
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Create Exam</button>
+            </div>
+        </div>
+    </form>
+</div>
 
-            <div class="mb-3">
-                <label for="type" class="form-label">Type of Exam</label>
-                <select class="form-select" id="type" name="type">
-                    <option value="midterm">Midterm</option>
-                    <option value="final">Final</option>
-                    <option value="project">Project</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="date" class="form-label">Exam Date</label>
-                <input type="date" class="form-control" id="date" name="date" required>
-            </div>
-            <div class="mb-3">
-                <label for="grade_percent" class="form-label">Grade Percentage (%)</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" id="grade_percent" name="grade_percent" min="0" max="100" value="0" required>
-                    <button class="btn btn-outline-secondary" type="button" id="increaseBtn">Up</button>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Create Exam</button>
-        </form>
-    </div>
 
 
 
