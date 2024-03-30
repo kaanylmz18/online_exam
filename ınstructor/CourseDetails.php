@@ -38,8 +38,8 @@
 
 <body>
 <?php
-include 'HeaderInst.php';
-include 'connection.php';
+include 'partities/HeaderInst.php';
+include 'partities/connection.php';
 
 // Function to delete an exam by ID
 function deleteExam($exam_id, $connection) {
@@ -121,7 +121,7 @@ if (isset($_GET['coursePK'])) {
     echo "</div>";
 }
 
-include 'Footer.php';
+include 'partities/Footer.php';
 
 // Process deletion if deleteExam parameter is present
 if (isset($_GET['deleteExam'])) {

@@ -32,8 +32,8 @@
 
 <body>
     <?php
-    include 'SidebarInstructor.php';
-    include 'ContentOfInstExam.php';
+    include 'partities/SidebarInstructor.php';
+    include 'partities/ContentOfInstExam.php';
     ?>
 
 
