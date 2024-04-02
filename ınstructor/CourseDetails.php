@@ -91,7 +91,7 @@ if (isset($_GET['coursePK'])) {
                 echo "<td>" . $exam['grade'] . "</td>";
                 echo "<td>" . $exam['grade_percent'] . "%</td>";
                 echo "<td>
-                    <a href='UpdateExam.php?examPK=" . $exam['pk'] . "' class='btn btn-primary btn-sm'>Update</a>
+                    <a href='UpdateExam.php?examPK=" . $exam['pk'] . "&courseFK=$course_id' class='btn btn-primary btn-sm'>Update</a>
                     <button class='btn btn-danger btn-sm delete-exam' data-exam-id='" . $exam['pk'] . "'>Delete</button>
                 </td>";
                 echo "</tr>";

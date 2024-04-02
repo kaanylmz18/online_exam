@@ -62,7 +62,7 @@
 
 <body>
   <?php
-  //include 'partities/HeaderInst.php';
+    
     include 'partities/SidebarInstructor.php';
     include 'partities/ContentOfInstHome.php';
   ?>
