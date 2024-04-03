@@ -130,6 +130,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["username"];
     $password = $_POST["password"];
 
+    // Hash the password using MD5
+    $hashed_password = md5($password);
+
     // Prepare and execute a statement to fetch user details from the database
     $stmt = $connection->prepare("SELECT * FROM user WHERE user_name = ?");
     $stmt->bind_param("s", $username);
@@ -140,12 +143,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if a user with the provided username exists
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        echo "Password entered: " . $password . "<br>";
-        echo "Password from database: " . $user["password"] . "<br>";
         
-        
-        // Verify password
-        if ($password == $user["password"]) {
+        // Verify hashed password
+        if ($hashed_password == $user["password"]) {
             // Store user information in session
             $_SESSION["user_id"] = $user["id"];
             $_SESSION["user_username"] = $user["username"];
@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: student/StudentHome.php");
                 exit();
             } elseif ($user["role"] == "Instructor") {
-                header("Location: ınstructor/InstructorHome.php");
+                header("Location: instructor/InstructorHome.php");
                 exit();
             }
         } else {
@@ -180,3 +180,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+

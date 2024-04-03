@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check if the total grade percentage including the updated exam does not exceed 100%
     $query = "SELECT SUM(grade_percent) AS total_grade FROM exam WHERE pk <> $exam_id AND courseFK = " . $_GET['courseFK'];
-
+ 
     $result = mysqli_query($connection, $query);
     $row = mysqli_fetch_assoc($result);
     $total_grade = $row['total_grade'];
