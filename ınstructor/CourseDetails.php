@@ -62,7 +62,7 @@
     include 'partities/SidebarInstructor.php';
     include 'partities/connection.php';
 
-    // Function to delete an exam by ID
+    
     function deleteExam($exam_id, $connection)
     {
         $query_delete_exam = mysqli_query($connection, "DELETE FROM exam WHERE pk = $exam_id");

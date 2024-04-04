@@ -118,22 +118,18 @@
 
 
 <?php
-// Start the session to store user information
 session_start();
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Include your database connection file
     include_once "student/partities/connection.php";
 
-    // Retrieve user input
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    // Retrieve user input and snaitize
+    $username = htmlspecialchars($_POST["username"]);
+    $password = htmlspecialchars($_POST["password"]);
 
     // Hash the password using MD5
     $hashed_password = md5($password);
 
-    // Prepare and execute a statement to fetch user details from the database
     $stmt = $connection->prepare("SELECT * FROM user WHERE user_name = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();

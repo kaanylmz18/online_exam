@@ -115,7 +115,7 @@
     <h2>Create Exam</h2>
     <form method="post">
         <div class="mb-3">
-            <label for="type" class="form-label">Type of Exam *</label>
+            <label for="type" class="form-label">Type of Exam </label>
             <select class="form-select" id="type" name="type" required>
                 <option value="midterm">Midterm</option>
                 <option value="final">Final</option>
