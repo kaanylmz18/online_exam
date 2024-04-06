@@ -3,7 +3,7 @@
      <?php
         include 'HeaderInst.php';
         include 'connection.php';
-        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=6)");
+        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=8)");
 
 
         ?>

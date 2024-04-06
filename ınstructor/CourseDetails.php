@@ -100,7 +100,7 @@
                 echo "<th>Exam ID</th>";
                 echo "<th>Exam Date</th>";
                 echo "<th>Type of Exam</th>";
-                echo "<th>Grade</th>";
+                
                 echo "<th>Grade Percent</th>";
                 echo "<th>Actions</th>";
                 echo "</tr>";
@@ -112,7 +112,6 @@
                     echo "<td>" . $exam['pk'] . "</td>";
                     echo "<td>" . $exam['date'] . "</td>";
                     echo "<td>" . $exam['type'] . "</td>";
-                    echo "<td>" . $exam['grade'] . "</td>";
                     echo "<td>" . $exam['grade_percent'] . "%</td>";
                     echo "<td>
                     <a href='UpdateExam.php?examPK=" . $exam['pk'] . "&courseFK=$course_id' class='btn btn-primary btn-sm'>Update</a>
