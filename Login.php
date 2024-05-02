@@ -95,7 +95,7 @@
 <body>
     <div class="container">
         <h2>Login</h2>
-        
+
         <form method="post" action="login.php">
             <div class="form-group">
                 <label for="username">Username :</label>
@@ -119,6 +119,7 @@
 
 <?php
 session_start();
+$_SESSION = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include_once "student/partities/connection.php";
@@ -134,25 +135,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
 
     // Check if a user with the provided username exists
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        
+
         // Verify hashed password
         if ($hashed_password == $user["password"]) {
             // Store user information in session
-            $_SESSION["user_id"] = $user["id"];
-            $_SESSION["user_username"] = $user["username"];
+            $_SESSION["user_id"] = $user["pk"];
+            $_SESSION["user_username"] = $user["user_name"];
             $_SESSION["user_role"] = $user["role"];
+            $_SESSION["user_firstname"] = $user["first_name"];
+            $_SESSION["user_lastname"] = $user["last_name"];
 
             // Redirect to the appropriate dashboard based on user role
             if ($user["role"] == "Student") {
                 header("Location: student/StudentHome.php");
                 exit();
             } elseif ($user["role"] == "Instructor") {
-                header("Location: instructor/InstructorHome.php");
+                header("Location: ınstructor/InstructorHome.php");
                 exit();
             }
         } else {
@@ -168,12 +171,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } elseif (isset($_SESSION["user_id"])) {
     // User is already logged in, redirect to the appropriate dashboard
     if ($_SESSION["user_role"] == "Student") {
-        header("Location: online_exam/student/StudentHome.php");
+        header("Location: student/StudentHome.php");
         exit();
     } elseif ($_SESSION["user_role"] == "Instructor") {
-        header("Location: online_exam/instructor/InstructorHome.php");
+        header("Location: ınstructor/InstructorHome.php");
         exit();
     }
 }
-?>
 
+?>

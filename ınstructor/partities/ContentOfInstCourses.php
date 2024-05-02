@@ -3,9 +3,19 @@
      <?php
         include 'HeaderInst.php';
         include 'connection.php';
-        $query = mysqli_query($connection, "SELECT * FROM courses WHERE (instructorFK=8)");
 
 
+
+        // Check if the user is logged in as an instructor
+        if (isset($_SESSION["user_id"]) && $_SESSION["user_role"] == "Instructor") {
+            $instructor_id = $_SESSION["user_id"];
+            // Fetch courses associated with the logged-in instructor
+            $query = mysqli_query($connection, "SELECT * FROM courses WHERE instructorFK = $instructor_id");
+        } else {
+            // Redirect to login page if not logged in or not an instructor
+            header("Location: Login.php");
+            exit();
+        }
         ?>
      <div class="container">
          <table class="table table-bordered table-striped table-hover text-center mt-5">
@@ -22,7 +32,7 @@
                      <tr>
                          <td><?php echo "$row[pk]"; ?></td>
                          <td><?php echo "$row[name]"; ?></td>
-                         <td><a href="CourseDetails.php?coursePK=<?php echo $row['pk'];?>"><?php echo "$row[code]"; ?></a> </td>
+                         <td><a href="CourseDetails.php?coursePK=<?php echo $row['pk']; ?>"><?php echo "$row[code]"; ?></a> </td>
                      </tr>
                  <?php } ?>
              </tbody>
