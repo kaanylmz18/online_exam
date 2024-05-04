@@ -7,15 +7,6 @@
     <title>Login Page</title>
     <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.freepik.com/256/3178/3178285.png?ga=GA1.1.2125020956.1709586637&" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-</head>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-    <link rel="stylesheet"> <!-- You can define your CSS styles in this file -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -149,6 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["user_role"] = $user["role"];
             $_SESSION["user_firstname"] = $user["first_name"];
             $_SESSION["user_lastname"] = $user["last_name"];
+
 
             // Redirect to the appropriate dashboard based on user role
             if ($user["role"] == "Student") {

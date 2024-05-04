@@ -130,6 +130,8 @@
             }
             echo "<a href='CreateExam.php?courseFK=$course_id' class='btn btn-success float-end mx-2'>Add Exam</a>";
             echo "<a href='InstructorCourses.php' class='btn btn-primary float-end'>Back To Page</a>";
+            echo "<a href='AddStudent.php?courseFK=$course_id' class='btn btn-primary float'>Add Student To Course</a>";
+            
 
             echo "</div>";
             echo "<br>";
