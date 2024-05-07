@@ -1,62 +1,72 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-class StudentExam
-{
-    public $name;
-    public $id;
-    public $date;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Course Information</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
 
-    public function __construct($name, $id, $date)
-    {
-        $this->name = $name;
-        $this->id = $id;
-        $this->date = $date;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getDate()
-    {
-        return $this->date;
-    }
-}
-
-$exams = array(
-    new StudentExam("Course 1", 101, "2024-03-10"),
-    new StudentExam("Course 2", 102, "2024-03-15"),
-    new StudentExam("Course 3", 103, "2024-03-20"),
-    new StudentExam("Course 4", 104, "2024-03-25"),
-    new StudentExam("Course 5", 105, "2024-03-30")
-);
-?>
-
-<div class="container">
-    <table class="table table-bordered table-striped table-hover text-center mt-5">
-        <thead class="table-primary">
-            <tr>
-                <th>Course</th>
-                <th>ID</th>
-                <th>Date</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($exams as $exam) { ?>
+<body>
+    <div class="container">
+        <table class="table table-bordered table-striped table-hover text-center mt-5">
+            <thead class="table-primary">
                 <tr>
-                    <td><?php echo $exam->getName(); ?></td>
-                    <td><?php echo $exam->getId(); ?></td>
-                    <td><?php echo $exam->getDate(); ?></td>
-                    <td><button class="btn btn-success btn-sm">Start Exam</button></td>
+                    <th>ID</th>
+                    <th>Course</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Percent</th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                <?php
+
+                include 'connection.php';
+
+                $userPK = $_SESSION["user_id"];
+
+                // Fetch student_fk from the database using the user_pk
+                $query_student_fk = "SELECT pk FROM student WHERE userFK = ?";
+                $stmt_student_fk = $connection->prepare($query_student_fk);
+                $stmt_student_fk->bind_param("i", $userPK);
+                $stmt_student_fk->execute();
+                $result_student_fk = $stmt_student_fk->get_result();
+
+                if ($result_student_fk->num_rows == 1) {
+                    $row_student_fk = $result_student_fk->fetch_assoc();
+                    $studentFK = $row_student_fk['pk'];
+
+                    // Fetch courses and exams associated with the student_fk
+                    $query_courses_exams = "SELECT e.pk, c.name, e.type, e.date, e.grade_percent
+                    FROM course_student cs
+                    JOIN courses c ON cs.courseFK = c.pk
+                    JOIN exam e ON c.pk = e.courseFK
+                    WHERE cs.studentFK = ?";
+                    $stmt_courses_exams = $connection->prepare($query_courses_exams);
+                    $stmt_courses_exams->bind_param("i", $studentFK);
+                    $stmt_courses_exams->execute();
+                    $result_courses_exams = $stmt_courses_exams->get_result();
+
+                    // Display the fetched data in the table
+                    while ($row_courses_exams = $result_courses_exams->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row_courses_exams['pk'] . "</td>";
+                        echo "<td>" . $row_courses_exams['name'] . "</td>";
+                        echo "<td>" . $row_courses_exams['type'] . "</td>";
+                        echo "<td>" . $row_courses_exams['date'] . "</td>";
+                        echo "<td>" . $row_courses_exams['grade_percent'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "Student information not found.";
+                }
+                ?>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $result_insert_course_student = mysqli_query($connection, $query_insert_course_student);
 
             if ($result_insert_course_student) {
-                header("Location: ContentOfAddStudent.php");
+                header("Location: AddStudent.php?courseFK=$course_id");
                 exit();
             } else {
                 echo "Error inserting course-student relationship: " . mysqli_error($connection);
@@ -41,7 +41,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Kullanıcı bulunamadı.";
         echo "Error: " . mysqli_error($connection);
     }
-    header("Location: ContentOfAddStudent.php");
 }
-
-?>
