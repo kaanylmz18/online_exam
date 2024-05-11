@@ -54,14 +54,20 @@ if (isset($_GET['courseFK'])) {
 }
 
 ?>
-<h2>Add a Student</h2>
-<form method="post" action="add_student.php?courseFK=<?php echo $course_id ?>">
-    <div class="form-group">
-        <label for="user_name">Student Username:</label>
-        <input type="text" id="user_name" name="user_name" required>
-    </div>
-    <button type="submit">Add Student</button>
-</form>
+<div class="container mt-4">
+    <h2>Add a Student</h2>
+    <form method="post" action="add_student.php?courseFK=<?php echo $course_id ?>" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="user_name">Student Username:</label>
+            <input type="text" id="user_name" name="user_name" class="form-control" required>
+            <div class="invalid-feedback">
+                Please enter a student username.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Student</button>
+    </form>
+</div>
+
 
 <?php
 include 'Footer.php';

@@ -85,6 +85,25 @@
             </div>
         </div>
     </div>
+    <?php
+    $query_total_exams = "
+            SELECT COUNT(*) AS total_count
+                        FROM (
+                                SELECT e.pk, c.name, e.type, e.date, e.grade_percent
+                                FROM course_student cs
+                                JOIN courses c ON cs.courseFK = c.pk
+                                JOIN exam e ON c.pk = e.courseFK
+                                WHERE cs.studentFK = ?
+                            ) AS subquery";
+
+                            $stmt_total_exams = $connection->prepare($query_total_exams);
+                            $stmt_total_exams->bind_param("i", $studentFK);
+                            $stmt_total_exams->execute();
+                            $result_total_exams = $stmt_total_exams->get_result();
+
+                            $total_exams_count = $result_total_exams->fetch_assoc()['total_count'];
+
+    ?>
 
     <div class="container mt-4">
         <div class="row p-3">
@@ -92,7 +111,7 @@
                 <div style="box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;" class="card text-bg-primary mb-3">
                     <div class="card-header"><strong>Total Exam Taken</strong></div>
                     <div class="card-body">
-                        <p class="card-text text-center"><b>5</b></p>
+                    <p class="card-text text-center"><b><?php echo $total_exams_count; ?></b></p>
                     </div>
                 </div>
             </div>
